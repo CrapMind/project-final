@@ -9,17 +9,8 @@ spring:
     password:
     driver-class-name: org.h2.Driver
   liquibase:
-    change-log: changelog.sql
+    change-log: "classpath:changelog-test.sql"
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: update
-  mail:
-    properties:
-      mail:
-        smtp:
-          starttls:
-            enable: true
-          auth: true
-    host: smtp.gmail.com
-    username: jira4jr@gmail.com

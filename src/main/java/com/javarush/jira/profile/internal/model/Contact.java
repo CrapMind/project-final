@@ -45,7 +45,7 @@ public class Contact implements HasId {
 
     @NotBlank
     @Size(min = 2, max = 256)
-    @Column(name = "value", nullable = false)
+    @Column(name = "contact_value", nullable = false) //--rename "value" to "contact_value" due to h2 syntax
     @NoHtml
     private String value;
 
