@@ -44,8 +44,10 @@ public class ProfileTestData {
                         new ContactTo("website", "new.com"),
                         new ContactTo("github", "newGitHub"),
                         new ContactTo("tg", "newTg"),
+                        new ContactTo("vk", "newVk"),
                         new ContactTo("linkedin", "newLinkedin")));
-    } // removing VK contact
+    }
+
     public static Profile getUpdated(long id) {
         Profile profile = new Profile();
         profile.setId(id);
@@ -55,9 +57,10 @@ public class ProfileTestData {
                 new Contact(id, "website", "new.com"),
                 new Contact(id, "github", "newGitHub"),
                 new Contact(id, "tg", "newTg"),
+                new Contact(id, "vk", "newVk"),
                 new Contact(id, "linkedin", "newLinkedin")));
         return profile;
-    } // removing VK contact
+    }
 
     public static ProfileTo getInvalidTo() {
         return new ProfileTo(null,
