@@ -107,10 +107,11 @@ create table CONTACT
 (
     ID    bigint       not null,
     CODE  varchar(32)  not null,
-    VALUE varchar(256) not null,
+    CONTACT_VALUE varchar(256) not null,
     primary key (ID, CODE),
     constraint FK_CONTACT_PROFILE foreign key (ID) references PROFILE (ID) on delete cascade
 );
+--changeset yurasubotinov:change_CONTACT
 
 create table TASK
 (
@@ -218,7 +219,6 @@ values ('task', 'Task', 2),
        ('mobile', 'Mobile', 0),
        ('phone', 'Phone', 0),
        ('website', 'Website', 0),
-       ('vk', 'VK', 0),
        ('linkedin', 'LinkedIn', 0),
        ('github', 'GitHub', 0),
 -- PRIORITY
@@ -227,6 +227,8 @@ values ('task', 'Task', 2),
        ('normal', 'Normal', 7),
        ('low', 'Low', 7),
        ('neutral', 'Neutral', 7);
+
+--changeset yurasubotinov:change_references_contact_values
 
 insert into REFERENCE (CODE, TITLE, REF_TYPE, AUX)
 -- MAIL_NOTIFICATION
