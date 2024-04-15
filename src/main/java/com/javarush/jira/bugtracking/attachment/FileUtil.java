@@ -7,14 +7,12 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 @UtilityClass
 public class FileUtil {
@@ -25,14 +23,19 @@ public class FileUtil {
             throw new IllegalRequestDataException("Select a file to upload.");
         }
 
-        File dir = new File(directoryPath);
-        if (dir.exists() || dir.mkdirs()) {
-            File file = new File(directoryPath + fileName);
-            try (OutputStream outStream = new FileOutputStream(file)) {
-                outStream.write(multipartFile.getBytes());
-            } catch (IOException ex) {
-                throw new IllegalRequestDataException("Failed to upload file" + multipartFile.getOriginalFilename());
+        Path directory = Paths.get(directoryPath);
+        if (Files.notExists(directory)) {
+            try {
+                Files.createDirectories(directory);
+            } catch (IOException e) {
+                throw new RuntimeException("Failed to create directory: " + directoryPath, e);
             }
+        }
+        Path file = directory.resolve(fileName);
+        try (InputStream inputStream = multipartFile.getInputStream()) {
+            Files.copy(inputStream, file, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            throw new IllegalRequestDataException("Failed to upload file " + multipartFile.getOriginalFilename());
         }
     }
 
