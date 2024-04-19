@@ -10,15 +10,25 @@ import java.util.Collections;
 import java.util.Set;
 
 public class ProfileTestData {
+    public static MatcherFactory.Matcher<ProfileTo> PROFILE_TO_MATCHER =
+            MatcherFactory.usingIgnoringFieldsComparator(ProfileTo.class, "user");
     public static MatcherFactory.Matcher<Profile> PROFILE_MATCHER =
             MatcherFactory.usingIgnoringFieldsComparator(Profile.class, "user");
-
-    public static ProfileTo USER_PROFILE_TO = new ProfileTo(null,
+    public static ProfileTo USER_PROFILE_TO = new ProfileTo(1L,
             Set.of("assigned", "overdue", "deadline"),
             Set.of(new ContactTo("skype", "userSkype"),
                     new ContactTo("mobile", "+01234567890"),
                     new ContactTo("website", "user.com")));
-    public static ProfileTo GUEST_PROFILE_EMPTY_TO = new ProfileTo(null,
+
+    public static ProfileTo ADMIN_PROFILE_TO = new ProfileTo(2L,
+            Set.of("three_days_before_deadline", "two_days_before_deadline", "one_day_before_deadline"),
+            Set.of(new ContactTo("tg", "adminTg"),
+                    new ContactTo("github", "adminGitHub")));
+    public static ProfileTo GUEST_PROFILE_EMPTY_TO = new ProfileTo(3L,
+            Set.of(),
+            Set.of());
+
+    public static ProfileTo MANAGER_PROFILE_EMPTY_TO = new ProfileTo(4L,
             Set.of(),
             Set.of());
 
