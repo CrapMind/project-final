@@ -32,12 +32,13 @@ class TaskControllerTest extends AbstractControllerTest {
     private static final String ACTIVITIES_REST_URL = REST_URL + "/activities";
     private static final String ACTIVITIES_REST_URL_SLASH = REST_URL + "/activities/";
     private static final String CHANGE_STATUS = "/change-status";
-
+    private static final String TAGS_URL = "/tags";
     private static final String PROJECT_ID = "projectId";
     private static final String SPRINT_ID = "sprintId";
     private static final String STATUS_CODE = "statusCode";
     private static final String USER_TYPE = "userType";
     private static final String ENABLED = "enabled";
+
 
     @Autowired
     private TaskRepository taskRepository;
@@ -589,5 +590,21 @@ class TaskControllerTest extends AbstractControllerTest {
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.detail", is(String
                         .format("Not found assignment with userType=%s for task {%d} for user {%d}", TASK_DEVELOPER, TASK1_ID, ADMIN_ID))));
+    }
+    @Test
+    @WithUserDetails(value = ADMIN_MAIL)
+    void addTag() throws Exception {
+        perform(MockMvcRequestBuilders.post(REST_URL + "/" + TASK1_ID + TAGS_URL)
+                .param("tag", TEST))
+                .andDo(print())
+                .andExpect(status().isCreated());
+    }
+    @Test
+    @WithUserDetails(value = ADMIN_MAIL)
+    void removeTag() throws Exception {
+        perform(MockMvcRequestBuilders.delete(REST_URL + "/" + TASK1_ID + TAGS_URL)
+                .param("tag", TEST))
+                .andDo(print())
+                .andExpect(status().isNoContent());
     }
 }
