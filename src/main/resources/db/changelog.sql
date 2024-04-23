@@ -331,3 +331,14 @@ values ('todo', 'ToDo', 3, 'in_progress,canceled|'),
 
 drop index UK_USER_BELONG;
 create unique index UK_USER_BELONG on USER_BELONG (OBJECT_ID, OBJECT_TYPE, USER_ID, USER_TYPE_CODE) where ENDPOINT is null;
+
+--changeset yurasubotinov:added_values_for_ACTIVITY
+
+INSERT INTO ACTIVITY (AUTHOR_ID, TASK_ID, UPDATED, STATUS_CODE)
+VALUES (6, 2, '2022-09-01 09:00:00', 'in_progress');
+
+INSERT INTO ACTIVITY (AUTHOR_ID, TASK_ID, UPDATED, STATUS_CODE)
+VALUES (6, 2, '2022-09-03 17:00:00', 'ready_for_review');
+
+INSERT INTO ACTIVITY (AUTHOR_ID, TASK_ID, UPDATED, STATUS_CODE)
+VALUES (6, 2, '2022-09-05 15:00:00', 'done');
